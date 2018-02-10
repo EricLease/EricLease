@@ -1,0 +1,16 @@
+{
+  "name": "ericlease",
+  "version": "0.0.2",
+  "description": "EricLease's website",
+  "scripts": {
+    "build": "rimraf dist/* && webpack"
+  },
+  "author": "Eric Lease",
+  "dependencies": {
+    "bootstrap": "^4.0.0-alpha.6"
+  },
+  "devDependencies": {
+    "rimraf": "^2.6.2",
+    "webpack": "^3.11.0"
+  }
+}
