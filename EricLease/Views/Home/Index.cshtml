@@ -1,9 +1,13 @@
-﻿@section css {
-    @Styles.Render("~/style/site")
-}
-
-<div id="content"></div>
+﻿<div id="content"></div>
 
 @section scripts {
-    @Scripts.Render("~/scripts/site")
+    @if (Settings.UseWebpackDevServer)
+    {
+        <script src="@(Settings.WebpackDevServerRoot)/vendor.home.js"></script>
+        <script src="@(Settings.WebpackDevServerRoot)/app.home.js"></script>
+    }
+    else
+    {
+        @Scripts.Render("~/scripts/home")
+    }
 }

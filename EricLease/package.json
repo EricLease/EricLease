@@ -1,16 +1,28 @@
 {
-  "name": "ericlease",
-  "version": "0.0.2",
-  "description": "EricLease's website",
-  "scripts": {
-    "build": "rimraf dist/* && webpack"
-  },
-  "author": "Eric Lease",
-  "dependencies": {
-    "bootstrap": "^4.0.0-alpha.6"
-  },
-  "devDependencies": {
-    "rimraf": "^2.6.2",
-    "webpack": "^3.11.0"
-  }
+    "name": "ericlease",
+    "version": "0.0.3",
+    "description": "EricLease's website",
+    "scripts": {
+        "clean-src": "rimraf src/**/*.js && rimraf src/**/*.js.map",
+        "clean": "rimraf dist/**.js",
+        "build": "npm run clean && webpack && npm run clean-src",
+        "start": "webpack-dev-server --inline --progress --port 8080"
+    },
+    "author": "Eric Lease",
+    "dependencies": {
+        "bootstrap": "^4.0.0",
+        "jquery": "^3.3.1",
+        "popper.js": "^1.12.9"
+    },
+    "devDependencies": {
+        "@types/webpack-env": "^1.13.5",
+        "awesome-typescript-loader": "^3.4.1",
+        "css-loader": "^0.28.9",
+        "rimraf": "^2.6.2",
+        "style-loader": "^0.20.1",
+        "typescript": "^2.7.1",
+        "webpack": "^3.11.0",
+        "webpack-dev-server": "^2.11.1"
+    }
+, "-vs-binding":{"ProjectOpened":["start"]}
 }

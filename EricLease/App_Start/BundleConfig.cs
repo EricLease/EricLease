@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace EricLease
 {
@@ -7,11 +6,9 @@ namespace EricLease
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/scripts/site").Include(
-                "~/dist/bundle.js"));
-
-            bundles.Add(new StyleBundle("~/style/site").Include(
-                "~/Content/site.css"));
+            bundles.Add(new ScriptBundle("~/scripts/home").Include(
+                "~/dist/vendor.home.js",
+                "~/dist/app.home.js"));
         }
     }
 }
