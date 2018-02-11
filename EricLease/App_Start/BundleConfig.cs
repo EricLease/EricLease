@@ -7,8 +7,12 @@ namespace EricLease
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/scripts/home").Include(
-                "~/dist/vendor.home.js",
-                "~/dist/app.home.js"));
+                "~/dist/common_vendor.js",
+                "~/dist/home_vendor.js",
+                "~/dist/home.js"));
+
+            bundles.Add(new StyleBundle("~/styles/home").Include(
+                "~/dist/common_vendor.css"));
         }
     }
 }
