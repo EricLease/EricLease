@@ -1,7 +1,7 @@
 ﻿@if (!Settings.UseWebpackDevServer)
 {
     @section styles {
-        @Styles.Render("~/styles/home")
+        <link rel="stylesheet" href="~/dist/@(WebpackAsset.Style("common"))" />
     }
 }
 
@@ -12,6 +12,8 @@
     }
     else
     {
-        @Scripts.Render("~/scripts/home")
+        <script src="~/dist/@(WebpackAsset.Script("common"))"></script>
+        <script src="~/dist/@(WebpackAsset.Script("home.vendor"))"></script>
+        <script src="~/dist/@(WebpackAsset.Script("home"))"></script>
     }
 }

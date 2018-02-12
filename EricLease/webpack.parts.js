@@ -1,5 +1,11 @@
 ﻿const webpack = require("webpack");
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
+const CleanWebpackPlugin = require("clean-webpack-plugin");
+const UglifyWebpackPlugin = require("uglifyjs-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const cssnano = require("cssnano");
+const AssetsWebpackPlugin = require('assets-webpack-plugin');
 
 exports.devServer = ({ host, port, stats } = {}) => ({
     devServer: {
@@ -9,8 +15,8 @@ exports.devServer = ({ host, port, stats } = {}) => ({
         overlay: {
             errors: true,
             warnings: true,
-        },
-    },
+        }
+    }
 });
 
 exports.loadCSS = ({ include, exclude } = {}) => ({
@@ -21,7 +27,7 @@ exports.loadCSS = ({ include, exclude } = {}) => ({
                 include,
                 exclude,
                 use: ['style-loader', 'css-loader'],
-            },
+            }
         ]
     }
 });
@@ -29,7 +35,7 @@ exports.loadCSS = ({ include, exclude } = {}) => ({
 exports.extractCSS = ({ include, exclude, use }) => {
     const plugin = new ExtractTextPlugin({
         allChunks: true,
-        filename: '[name].css',
+        filename: '[name].[contenthash:8].css',
     });
 
     return {
@@ -50,8 +56,49 @@ exports.extractCSS = ({ include, exclude, use }) => {
     };
 };
 
+exports.loadTS = () => ({
+    module: {
+        rules: [
+            {
+                test: /\.ts$/,
+                include: /src/,
+                use: 'awesome-typescript-loader?silent=true'
+            }
+        ]
+    },
+    plugins: [new CheckerPlugin()]
+})
+
 exports.extractBundles = bundles => ({
     plugins: bundles.map(
         bundle => new webpack.optimize.CommonsChunkPlugin(bundle)
-    ),
+    )
+});
+
+exports.clean = path => ({
+    plugins: [new CleanWebpackPlugin([path])]
+});
+
+exports.minifyJS = () => ({
+    plugins: [new UglifyWebpackPlugin()]
+});
+
+exports.minifyCSS = ({ options }) => ({
+    plugins: [
+        new OptimizeCSSAssetsPlugin({
+            cssProcessor: cssnano,
+            cssProcessorOptions: options,
+            canPrint: false,
+        }),
+    ]
+});
+
+exports.assetsMetadata = ({ path, filename }) => ({
+    plugins: [
+        new AssetsWebpackPlugin({
+            path: path,
+            filename: filename,
+            prettyPrint: true
+        })
+    ]
 });

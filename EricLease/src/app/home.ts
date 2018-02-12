@@ -1,6 +1,6 @@
 ﻿import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Vue, { VNode } from 'vue'
+import Vue, { VNode } from 'vue';
 
 const Component = Vue.extend({});
 //const Component = Vue.extend({
@@ -30,11 +30,10 @@ const Component = Vue.extend({});
 const helloWorld = (text = "Hello world") => {
     const element = document.createElement("div");
 
+    //element.classList.add('text-danger');
     element.innerHTML = text;
 
     return element;
 };
 
 document.body.appendChild(helloWorld());
-
-console.log('hey ho');
