@@ -1,19 +1,22 @@
 ﻿@if (!Settings.UseWebpackDevServer)
 {
     @section styles {
-        <link rel="stylesheet" href="~/dist/@(WebpackAsset.Style("common"))" />
+        @*<link rel="stylesheet" href="~/dist/@(WebpackAsset.Style("common"))" />*@
+        <link rel="stylesheet" href="~/dist/@(WebpackAsset.Style("vue-app.vendor"))" />
     }
 }
+
+<div id="app"></div>
 
 @section scripts {
     @if (Settings.UseWebpackDevServer)
     {
-        <script src="@(Settings.WebpackDevServerRoot)/home.js"></script>
+        <script src="@(Settings.WebpackDevServerRoot)/vue-app.js"></script>
     }
     else
     {
         <script src="~/dist/@(WebpackAsset.Script("common"))"></script>
-        <script src="~/dist/@(WebpackAsset.Script("home.vendor"))"></script>
-        <script src="~/dist/@(WebpackAsset.Script("home"))"></script>
+        <script src="~/dist/@(WebpackAsset.Script("vue-app.vendor"))"></script>
+        <script src="~/dist/@(WebpackAsset.Script("vue-app"))"></script>
     }
 }

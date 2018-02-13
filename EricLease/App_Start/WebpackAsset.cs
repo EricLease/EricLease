@@ -15,7 +15,9 @@ namespace EricLease
         {
             if (_registered) return;
 
+#if !RELEASE_WATCH
             _registered = true;
+#endif
             _assets = new Dictionary<string, Dictionary<string, string>>();
 
             var path = HostingEnvironment.MapPath("~/dist/webpack.assets.json");

@@ -1,10 +1,9 @@
-﻿const webpack = require("webpack");
+﻿const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
-const CleanWebpackPlugin = require("clean-webpack-plugin");
-const UglifyWebpackPlugin = require("uglifyjs-webpack-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const cssnano = require("cssnano");
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const UglifyWebpackPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const cssnano = require('cssnano');
 const AssetsWebpackPlugin = require('assets-webpack-plugin');
 
 exports.devServer = ({ host, port, stats } = {}) => ({
@@ -14,7 +13,11 @@ exports.devServer = ({ host, port, stats } = {}) => ({
         port, // Defaults to 8080
         overlay: {
             errors: true,
-            warnings: true,
+            warnings: true
+        },
+        headers: {
+            // Allow fonts to be requested from IIS (http://localhost/EricLease)
+            'Access-Control-Allow-Origin': '*'
         }
     }
 });
@@ -26,7 +29,7 @@ exports.loadCSS = ({ include, exclude } = {}) => ({
                 test: /\.css(\?|$)/,
                 include,
                 exclude,
-                use: ['style-loader', 'css-loader'],
+                use: ['style-loader', 'css-loader']
             }
         ]
     }
@@ -35,7 +38,7 @@ exports.loadCSS = ({ include, exclude } = {}) => ({
 exports.extractCSS = ({ include, exclude, use }) => {
     const plugin = new ExtractTextPlugin({
         allChunks: true,
-        filename: '[name].[contenthash:8].css',
+        filename: '[name].[contenthash:8].css'
     });
 
     return {
@@ -48,26 +51,73 @@ exports.extractCSS = ({ include, exclude, use }) => {
                     use: plugin.extract({
                         use,
                         fallback: 'style-loader',
-                    }),
-                },
-            ],
+                    })
+                }
+            ]
         },
         plugins: [plugin]
     };
 };
 
-exports.loadTS = () => ({
+exports.loadFonts = () => ({
     module: {
         rules: [
             {
-                test: /\.ts$/,
-                include: /src/,
-                use: 'awesome-typescript-loader?silent=true'
+                test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+            },
+            {
+                test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+            },
+            {
+                test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'url-loader?limit=10000&mimetype=application/octet-stream'
+            },
+            {
+                test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'file-loader'
+            },
+            {
+                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
             }
         ]
+    }
+});
+
+exports.loadTS = ({ options }) => ({
+    resolve: {
+        extensions: ['.ts', '.tsx']
     },
-    plugins: [new CheckerPlugin()]
-})
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/,
+                include: /src/,
+                use: 'ts-loader',
+                options
+            }
+        ]
+    }
+});
+
+exports.loadVue = () => ({
+    resolve: {
+        extensions: ['.vue'],
+        alias: {
+            'vue$': 'vue/dist/vue.esm.js'
+        }
+    },
+    module: {
+        rules: [
+            {
+                test: /\.vue$/,
+                use: 'vue-loader'
+            }
+        ]
+    }
+});
 
 exports.extractBundles = bundles => ({
     plugins: bundles.map(
@@ -88,8 +138,8 @@ exports.minifyCSS = ({ options }) => ({
         new OptimizeCSSAssetsPlugin({
             cssProcessor: cssnano,
             cssProcessorOptions: options,
-            canPrint: false,
-        }),
+            canPrint: false
+        })
     ]
 });
 
@@ -99,6 +149,16 @@ exports.assetsMetadata = ({ path, filename }) => ({
             path: path,
             filename: filename,
             prettyPrint: true
+        })
+    ]
+});
+
+exports.prodOptimization = () => ({
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: '"production"'
+            }
         })
     ]
 });
