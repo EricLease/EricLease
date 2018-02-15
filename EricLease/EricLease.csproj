@@ -139,6 +139,7 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="src\vue\components\Hello.vue" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -159,7 +160,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="src\vue\components\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="package.json" />
@@ -171,6 +171,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="src\vue\index.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="types\vue-shim.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

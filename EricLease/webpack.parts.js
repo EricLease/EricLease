@@ -86,7 +86,7 @@ exports.loadFonts = () => ({
     }
 });
 
-exports.loadTS = ({ options }) => ({
+exports.loadTS = ({ options } = {}) => ({
     resolve: {
         extensions: ['.ts', '.tsx']
     },
@@ -95,14 +95,14 @@ exports.loadTS = ({ options }) => ({
             {
                 test: /\.tsx?$/,
                 include: /src/,
-                use: 'ts-loader',
+                loader: 'ts-loader',
                 options
             }
         ]
     }
 });
 
-exports.loadVue = () => ({
+exports.loadVue = ({ options } = {}) => ({
     resolve: {
         extensions: ['.vue'],
         alias: {
@@ -113,7 +113,8 @@ exports.loadVue = () => ({
         rules: [
             {
                 test: /\.vue$/,
-                use: 'vue-loader'
+                loader: 'vue-loader',
+                options
             }
         ]
     }

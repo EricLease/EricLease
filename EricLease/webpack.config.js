@@ -19,10 +19,10 @@ module.exports = (env) => {
         },
         parts.loadFonts(),
         parts.loadTS({
-            // TODO: determine how to make this conditional
-            appendTsSuffixTo: [/\.vue$/],
-        }),
-        parts.loadVue()
+            options: {
+                appendTsSuffixTo: [/\.vue$/]
+            }
+        })
     ]);
     const devConfig = merge([
         {
@@ -36,6 +36,13 @@ module.exports = (env) => {
             host: process.env.HOST,
             port: process.env.PORT
         }),
+        parts.loadVue({
+            options: {
+                loaders: {
+                    'css': 'vue-style-loader!css-loader'
+                }
+            }
+        }),
         parts.loadCSS()
     ]);
     const prodConfig = merge([
@@ -46,7 +53,10 @@ module.exports = (env) => {
                 path: path.resolve(__dirname, buildDir)
             }
         },
-        parts.extractCSS({ use: 'css-loader' }),
+        parts.loadVue({
+            options: { extractCSS: true }
+        }),
+        parts.extractCSS({use: 'css-loader' }),
         parts.extractBundles([
             {
                 name: 'common',
