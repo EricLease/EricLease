@@ -4,6 +4,7 @@
         "module": "es2015",
         "moduleResolution": "node",
         "strict": true,
+        "strictPropertyInitialization": false, // Allow undefined Vue @Props
         "sourceMap": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,

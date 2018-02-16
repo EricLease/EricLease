@@ -140,6 +140,7 @@
       <SubType>Designer</SubType>
     </Content>
     <None Include="src\vue\components\Hello.vue" />
+    <None Include="src\vue\components\HelloDecorator.vue" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -191,6 +192,24 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <!-- Suppress warning -->
+    <TypeScriptExperimentalDecorators>true</TypeScriptExperimentalDecorators>
+    <!-- Prevent TS compile on build, webpack is handling TS compile -->
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <!-- Suppress warning -->
+    <TypeScriptExperimentalDecorators>true</TypeScriptExperimentalDecorators>
+    <!-- Prevent TS compile on build, webpack is handling TS compile -->
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'ReleaseWatch'">
+    <!-- Suppress warning -->
+    <TypeScriptExperimentalDecorators>true</TypeScriptExperimentalDecorators>
+    <!-- Prevent TS compile on build, webpack is handling TS compile -->
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
