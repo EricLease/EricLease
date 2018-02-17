@@ -127,7 +127,9 @@
     <Compile Include="App_Start\Settings.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\WebpackAsset.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReactController.cs" />
+    <Compile Include="Controllers\AngularController.cs" />
+    <Compile Include="Controllers\VueController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -139,8 +141,12 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="src\vue\components\app.vue" />
     <None Include="src\vue\components\Hello.vue" />
     <None Include="src\vue\components\HelloDecorator.vue" />
+    <None Include="src\vue\components\navbar.vue" />
+    <Content Include="Views\Angular\Index.cshtml" />
+    <Content Include="Views\React\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -149,7 +155,7 @@
     </None>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Vue\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <None Include="Web.ReleaseWatch.config">

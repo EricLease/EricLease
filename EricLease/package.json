@@ -1,6 +1,6 @@
 {
   "name": "ericlease",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "EricLease's website",
   "scripts": {
     "build": "webpack --env prod",

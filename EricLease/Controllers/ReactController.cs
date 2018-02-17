@@ -2,11 +2,11 @@
 
 namespace EricLease.Controllers
 {
-    public class HomeController : Controller
+    public class ReactController : Controller
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
+            ViewBag.Title = "EricLease React";
 
             return View();
         }

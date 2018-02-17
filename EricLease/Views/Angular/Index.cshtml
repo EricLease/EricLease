@@ -1,0 +1,23 @@
+﻿@if (!Settings.UseWebpackDevServer)
+{
+    @section styles {
+        @*<link rel="stylesheet" href="~/dist/@(WebpackAsset.Style("common"))" />*@
+        <link rel="stylesheet" href="~/dist/@(WebpackAsset.Style("angular-app.vendor"))" />
+        <link rel="stylesheet" href="~/dist/@(WebpackAsset.Style("angular-app"))" />
+    }
+}
+
+<app>Loading...</app>
+
+@section scripts {
+    @if (Settings.UseWebpackDevServer)
+    {
+        <script src="@(Settings.WebpackDevServerRoot)/angular-app.js"></script>
+    }
+    else
+    {
+        <script src="~/dist/@(WebpackAsset.Script("common"))"></script>
+        <script src="~/dist/@(WebpackAsset.Script("angular-app.vendor"))"></script>
+        <script src="~/dist/@(WebpackAsset.Script("angular-app"))"></script>
+    }
+}
